@@ -1,0 +1,28 @@
+
+version: '3.8'
+
+services:
+  db_test:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: hdm1234*
+      MYSQL_DATABASE: gru_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: hdm1234*
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  flask_test:
+    build: ./app
+    depends_on:
+      - db_test
+    ports:
+      - "5001:5000"
+    environment:
+      - DB_HOST=database-1.creescwqe4a4.ap-northeast-2.rds.amazonaws.com
+      - DB_USER=admin
+      - DB_PASSWORD=hdm1234*
+      - DB_NAME=gru_db

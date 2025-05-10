@@ -1,0 +1,6 @@
+Flask
+numpy
+pymysql
+tensorflow
+python-dotenv
+mysql-connector-python
